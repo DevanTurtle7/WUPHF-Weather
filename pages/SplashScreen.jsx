@@ -1,18 +1,27 @@
-import { Text, View } from 'react-native';
+import { View } from 'react-native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
+const UID_KEY = "uid"
+
 function SplashScreen({ navigation }) {
+    const navigateToPage = (name) => {
+        navigation.reset({
+            index: 0,
+            routes: [{ name: name }],
+        });
+    }
+
     const checkNavState = async () => {
         try {
             const id = await AsyncStorage.getItem(UID_KEY);
 
             if (id !== null) {
-                navigation.navigate("Home")
+                navigateToPage("Home")
             } else {
-                navigation.navigate("LandingPage")
+                navigateToPage("LandingPage")
             }
         } catch (e) {
-            navigation.navigate("LandingPage")
+            navigateToPage("LandingPage")
         }
     }
 
