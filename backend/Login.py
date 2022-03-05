@@ -1,7 +1,7 @@
 from flask_restful import Resource
 from flask import request, jsonify
-from db_login import *
 from db_create_account import *
+
 
 class Login(Resource):
     def post(self):
