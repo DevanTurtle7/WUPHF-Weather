@@ -12,7 +12,7 @@ get too wet!"""
 snow_message = """Someone put a spoon under their pillow last night! Get ready for some snow today, and be careful 
 on the roads. Thing about wearing boots and a jacket when you go outside."""
 clear_message = """It looks to be a clear one today, so you know what that means: suns out guns out! Think about 
-some sunscreen if you don't want to get burnt, and spend some time outside in the sun!"""
+some sunscreen if you don't want to get burnt, and spend some time outside in the sun if it's warm enough!"""
 clouds_message = """There looks to be some gray in the forecast today. Nothing too exciting falling out of the sky, 
 but that can be a good thing"""
 
@@ -74,3 +74,7 @@ def get_temperature_message(response):
     return "unknown weather: beware"
 
 
+def get_message(response):
+    weather = get_weather_message(response)
+    temperature = get_temperature_message(response)
+    return weather + temperature
