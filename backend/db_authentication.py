@@ -3,7 +3,7 @@ from hashlib import sha512
 import psycopg2
 import os
 
-opt = 'postgresql://free-tier11.gcp-us-east1.cockroachlabs.cloud:26257/defaultdb'
+opt = """postgresql://nick:ILsTMfzhA2rcGoGxzY-CtQ@free-tier11.gcp-us-east1.cockroachlabs.cloud:26257/defaultdb?sslmode=verify-full&options=--cluster%3Dwuphf-weather-214"""
 conn = psycopg2.connect(os.environ[opt])
 
 
@@ -18,6 +18,10 @@ def create_account(email, password, phone_num, lat, lon):
     params = [email, hash_password_with_salt(salt, password), phone_num, lat, lon]
     with conn.cursor() as curs:
         curs.execute(sql.format(params))
+
+
+if __name__ == '__main__':
+    create_account("rejhgvb", "erkbg", "9788864834", "34.34566", "56.45387")
 
 
 def generate_salt():
