@@ -1,11 +1,33 @@
 import { StatusBar } from 'expo-status-bar';
-import { StyleSheet, Text, View, TextInput } from 'react-native';
+import { StyleSheet, Text, View, Button } from 'react-native';
 
-function LandingPage() {
+function LandingPage(props) {
+    const loginPressed = () => {
+        
+    }
+
+    const signUpPressed = () => {
+
+    }
+
     return (
         <View style={styles.container}>
-            <Text>WUPHF Weather</Text>
             <StatusBar style="auto" />
+
+            <Text>WUPHF Weather</Text>
+
+            <View style={styles.button}>
+                <Button
+                    onPress={loginPressed}
+                    title="Login"
+                />
+            </View>
+            <View style={styles.button}>
+                <Button
+                    onPress={signUpPressed}
+                    title="Sign Up"
+                />
+            </View>
         </View>
     );
 }
@@ -17,12 +39,8 @@ const styles = StyleSheet.create({
         alignItems: 'center',
         justifyContent: 'center',
     },
-
-    input: {
-        height: 40,
-        margin: 12,
-        borderWidth: 1,
-        padding: 10
+    button: {
+        margin: 10
     }
 });
 

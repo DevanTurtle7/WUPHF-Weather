@@ -1,5 +1,11 @@
+import { StyleSheet, Text, View, TextInput } from 'react-native';
+
 function LoginPage() {
-    return (null)
+    return (
+        <View>
+
+        </View>
+    )
 }
 
 export default LoginPage
