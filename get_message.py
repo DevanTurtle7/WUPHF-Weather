@@ -15,6 +15,8 @@ clear_message = """It looks to be a clear one today, so you know what that means
 some sunscreen if you don't want to get burnt, and spend some time outside in the sun if it's warm enough!"""
 clouds_message = """There looks to be some gray in the forecast today. Nothing too exciting falling out of the sky, 
 but that can be a good thing"""
+atmospheric_message = """Woah, there is some crazy stuff going on outside. Be careful where you go, and watch your
+phone for updated weather alerts."""
 
 # Temperature Messages
 below_zero_message = """Brrrrrrrrr. Don't go outside if you can help it, trust me, it's cold out there. If you are
@@ -36,6 +38,8 @@ def get_weather_message(response):
     data = response.json()
     report = data['weather']
     weather_main = report[1]
+    weather_id = report[0]
+
     if weather_main == 'Thunderstorm':
         return thunderstorm_message
     elif weather_main == 'Drizzle':
@@ -48,6 +52,8 @@ def get_weather_message(response):
         return clear_message
     elif weather_main == 'Clouds':
         return clouds_message
+    elif 701 <= weather_id & weather_id <= 781:
+        return atmospheric_message
 
     return "unknown weather: beware"
 
@@ -74,7 +80,7 @@ def get_temperature_message(response):
     return "unknown weather: beware"
 
 
-def get_message(response):
+def make_message(response):
     weather = get_weather_message(response)
     temperature = get_temperature_message(response)
     return weather + temperature
