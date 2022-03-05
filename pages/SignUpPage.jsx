@@ -1,6 +1,19 @@
 import { StyleSheet, Text, View, TextInput, Button } from 'react-native';
+import { useState } from 'react';
 
-function LoginPage() {
+function SignUpPage({ navigation }) {
+    const [email, setEmail] = useState("")
+    const [phone, setPhone] = useState("")
+    const [password, setPassword] = useState("")
+
+    const backButtonPressed = () => {
+        navigation.goBack()
+    }
+
+    const nextButtonPressed = () => {
+
+    }
+
     return (
         <View style={styles.background}>
             <View style={styles.container}>
@@ -8,30 +21,37 @@ function LoginPage() {
                 <TextInput
                     style={styles.input}
                     textContentType='emailAddress'
-                    placeholder='Email' />
+                    placeholder='Email'
+                    onChangeText={setEmail} />
 
                 <Text>Phone</Text>
                 <TextInput
                     style={styles.input}
                     textContentType='telephoneNumber'
-                    placeholder='Phone' />
+                    placeholder='Phone'
+                    onChangeText={setPhone} />
 
                 <Text>Password</Text>
                 <TextInput
                     style={styles.input}
                     secureTextEntry
                     textContentType='password'
-                    placeholder='Password' />
+                    placeholder='Password'
+                    onChangeText={setPassword} />
             </View>
 
             <View style={styles.footer}>
                 <View style={styles.footerRow}>
                     <View style={styles.button}>
-                        <Button title="Back" />
+                        <Button
+                            title="Back"
+                            onPress={backButtonPressed} />
                     </View>
 
                     <View style={styles.button}>
-                        <Button title="Next" />
+                        <Button
+                            title="Next"
+                            onPress={nextButtonPressed} />
                     </View>
                 </View>
             </View>
@@ -70,4 +90,4 @@ const styles = StyleSheet.create({
     }
 });
 
-export default LoginPage
+export default SignUpPage
