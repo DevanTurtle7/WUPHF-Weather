@@ -5,7 +5,7 @@ from db_authentication import *
 
 class Login(Resource):
     def post(self):
-        email = request.json['email']
+        email = request.json['emailAddress']
         password = request.json['password']
 
         if email and password:
