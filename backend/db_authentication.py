@@ -1,9 +1,10 @@
 import secrets
 from hashlib import sha512
 import psycopg2
+import os
 
 opt = 'postgresql://free-tier11.gcp-us-east1.cockroachlabs.cloud:26257/defaultdb'
-conn = psycopg2.connect(opt.dsn)
+conn = psycopg2.connect(os.environ[opt])
 
 
 def create_account(email, password, phone_num, lat, lon):
