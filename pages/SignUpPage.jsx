@@ -1,5 +1,6 @@
 import { StyleSheet, Text, View, TextInput, Button } from 'react-native';
 import { useState } from 'react';
+import * as Location from 'expo-location';
 
 function SignUpPage({ navigation }) {
     const [email, setEmail] = useState("")
@@ -10,8 +11,16 @@ function SignUpPage({ navigation }) {
         navigation.goBack()
     }
 
-    const nextButtonPressed = () => {
+    const nextButtonPressed = async () => {
+        let { status } = await Location.requestForegroundPermissionsAsync();
 
+        if (status !== 'granted') {return}
+
+        const location = await Location.getCurrentPositionAsync({});
+        const latitute = location.coords.latitude
+        const longitude = location.coords.longitude
+
+        console.log(latitute, longitude)
     }
 
     return (
