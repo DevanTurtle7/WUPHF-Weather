@@ -44,9 +44,28 @@ def session_key_exists(session_key):
 
 def update_session_key(email, new_session_key):
     sql = """
-    UPDATE users
+    UPDATE user
     SET key_expire = NOW() + interval '1 day',
     session_key = %s
     WHERE email = %s;
     """
     return db.exec_commit(sql, (new_session_key, email))
+
+
+def authenticate_session(session_key):
+    sql = """
+    SELECT user_id
+    FROM user
+    WHERE session_key = %s AND
+    key_expire > NOW();
+    """
+    return db.exec_get_one(sql, session_key)
+
+
+def logout(session_key):
+    sql = """
+    UPDATE user
+    SET key_expire = NOW()
+    WHERE session_key = %s;
+    """
+    return db.exec_commit(sql, session_key)
