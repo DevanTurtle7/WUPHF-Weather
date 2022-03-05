@@ -1,7 +1,9 @@
 import secrets
 from hashlib import sha512
-from psycopg2.extras import execute_values
-from database import db
+import psycopg2
+
+opt = 'postgresql://free-tier11.gcp-us-east1.cockroachlabs.cloud:26257/defaultdb'
+conn = psycopg2.connect(opt.dsn)
 
 
 def create_account(email, password, phone_num, lat, lon):
@@ -9,12 +11,12 @@ def create_account(email, password, phone_num, lat, lon):
     INSERT INTO user
     (email, password, phone_num, lat, lon)
     VALUES (%s, %s, %s, %s, %s)
-    RETURNING id
     """
 
     salt = generate_salt()
-    params = [email, password, phone_num, lat, lon]
-    return db.exec_commit_r(sql, params)[0][0]
+    params = [email, hash_password_with_salt(salt, password), phone_num, lat, lon]
+    with conn.cursor() as curs:
+        curs.execute(sql.format(params))
 
 
 def generate_salt():
@@ -23,6 +25,11 @@ def generate_salt():
     128 chars for increased security
     """
     return secrets.token_hex(64)
+
+
+def hash_password_with_salt(salt, password):
+    combined_str = salt + password
+    return sha512(combined_str.encode("utf-8")).hexdigest()
 
 
 def generate_session_key():
@@ -39,7 +46,8 @@ def session_key_exists(session_key):
     FROM user
     WHERE session_key = %s;
     """
-    return bool(db.exec_get_one(sql, session_key))
+    with conn.cursor() as curs:
+        return curs.execute(sql.format(session_key))
 
 
 def update_session_key(email, new_session_key):
@@ -49,7 +57,8 @@ def update_session_key(email, new_session_key):
     session_key = %s
     WHERE email = %s;
     """
-    return db.exec_commit(sql, (new_session_key, email))
+    with conn.cursor() as curs:
+        curs.execute(sql.format(email, new_session_key))
 
 
 def authenticate_session(session_key):
@@ -59,7 +68,8 @@ def authenticate_session(session_key):
     WHERE session_key = %s AND
     key_expire > NOW();
     """
-    return db.exec_get_one(sql, session_key)
+    with conn.cursor() as curs:
+        curs.execute(sql.format(session_key))
 
 
 def logout(session_key):
@@ -68,4 +78,5 @@ def logout(session_key):
     SET key_expire = NOW()
     WHERE session_key = %s;
     """
-    return db.exec_commit(sql, session_key)
+    with conn.cursor() as curs:
+        curs.execute(sql.format(session_key))
