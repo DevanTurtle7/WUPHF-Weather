@@ -16,12 +16,12 @@ export default function App() {
     const checkNavState = async () => {
         try {
             const id = await AsyncStorage.getItem(UID_KEY);
-            setNavState(NOT_LOGGED_IN)
+
+            setNavState(id === null ? NOT_LOGGED_IN : LOGGED_IN)
         } catch (e) {
             setNavState(NOT_LOGGED_IN)
         }
     }
-
 
     if (navState === LOGGED_IN) {
         return (
