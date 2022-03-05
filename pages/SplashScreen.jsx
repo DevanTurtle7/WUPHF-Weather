@@ -27,9 +27,16 @@ function SplashScreen({ navigation }) {
 
     checkNavState()
     return (
-        <View>
+        <View style={styles.background}>
         </View>
     )
 }
+
+const styles = StyleSheet.create({
+    background: {
+        backgroundColor: "#fff",
+        flex: 1
+    }
+})
 
 export default SplashScreen
