@@ -1,9 +1,9 @@
 import { StatusBar } from 'expo-status-bar';
 import { StyleSheet, Text, View, Button } from 'react-native';
 
-function LandingPage(props) {
+function LandingPage({navigation}) {
     const loginPressed = () => {
-        
+        navigation.navigate("Login")
     }
 
     const signUpPressed = () => {

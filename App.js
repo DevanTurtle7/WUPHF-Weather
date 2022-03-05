@@ -1,14 +1,20 @@
 import { StatusBar } from 'expo-status-bar';
 import { StyleSheet, Text, View, TextInput } from 'react-native';
 import { useState } from 'react'
+import { NavigationContainer } from '@react-navigation/native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import { createNativeStackNavigator } from '@react-navigation/native-stack';
+
 import LandingPage from './components/LandingPage';
+import LoginPage from './components/LoginPage';
 
 const UID_KEY = "uid"
 
 const WAITING = 0
 const LOGGED_IN = 1
 const NOT_LOGGED_IN = 2
+
+const Stack = createNativeStackNavigator()
 
 export default function App() {
     const [navState, setNavState] = useState(WAITING)
@@ -23,6 +29,7 @@ export default function App() {
         }
     }
 
+    /*
     if (navState === LOGGED_IN) {
         return (
             <View style={styles.container}>
@@ -44,8 +51,21 @@ export default function App() {
         return (
             <LandingPage />
         );
-    }
-
+    }*/
+    return (
+        <NavigationContainer>
+            <Stack.Navigator>
+                <Stack.Screen
+                    name="LandingPage"
+                    component={LandingPage}
+                />
+                <Stack.Screen
+                    name="Login"
+                    component={LoginPage}
+                />
+            </Stack.Navigator>
+        </NavigationContainer>
+    );
 }
 
 const styles = StyleSheet.create({
