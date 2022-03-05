@@ -1,4 +1,5 @@
 import { StyleSheet, Text, View, TextInput, Button } from 'react-native';
+import { useState } from 'react';
 
 function SignUpPage({ navigation }) {
     const [email, setEmail] = useState("")
