@@ -1,6 +1,10 @@
 import { StyleSheet, Text, View, TextInput, Button } from 'react-native';
+import { useState } from 'react';
 
 function LoginPage() {
+    const [email, setEmail] = useState("")
+    const [password, setPassword] = useState("")
+
     return (
         <View style={styles.background}>
             <View style={styles.container}>
@@ -8,14 +12,16 @@ function LoginPage() {
                 <TextInput
                     style={styles.input}
                     textContentType='emailAddress'
-                    placeholder='Email' />
+                    placeholder='Email'
+                    onChangeText={setEmail} />
 
                 <Text>Password</Text>
                 <TextInput
                     style={styles.input}
                     secureTextEntry
                     textContentType='password'
-                    placeholder='Password' />
+                    placeholder='Password'
+                    onChangeText={setPassword} />
             </View>
 
             <View style={styles.footer}>
