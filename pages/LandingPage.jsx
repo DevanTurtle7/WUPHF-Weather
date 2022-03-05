@@ -3,11 +3,11 @@ import { StyleSheet, Text, View, Button } from 'react-native';
 
 function LandingPage({navigation}) {
     const loginPressed = () => {
-        navigation.navigate("Login")
+        navigation.navigate("LoginPage")
     }
 
     const signUpPressed = () => {
-
+        navigation.navigate("SignUpPage")
     }
 
     return (
