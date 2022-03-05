@@ -1,5 +1,3 @@
-import requests
-import response
 import json
 
 # Weather Messages
@@ -34,8 +32,8 @@ above_hundred_message = """Nope. Too hot out there. Stay inside if possible, and
 light. Make sure you bring water where ever you go to stay hydrated."""
 
 
-def get_weather_message(response):
-    data = response.json()
+def get_weather_message(data):
+    data = data.json()
     report = data['weather']
     weather_main = report[1]
     weather_id = report[0]
@@ -58,8 +56,8 @@ def get_weather_message(response):
     return "unknown weather: beware"
 
 
-def get_temperature_message(response):
-    data = response.json()
+def get_temperature_message(data):
+    data = data.json()
     main = data['main']
     temp = main[0]
     if temp < 0:
@@ -80,7 +78,7 @@ def get_temperature_message(response):
     return "unknown weather: beware"
 
 
-def make_message(response):
-    weather = get_weather_message(response)
-    temperature = get_temperature_message(response)
+def make_message(data):
+    weather = get_weather_message(data)
+    temperature = get_temperature_message(data)
     return weather + temperature

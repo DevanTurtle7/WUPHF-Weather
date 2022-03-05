@@ -13,4 +13,3 @@ class Message(Resource):
 
         response = requests.get(url)
         return make_message(response)
-
