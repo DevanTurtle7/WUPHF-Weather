@@ -1,9 +1,17 @@
 import { StyleSheet, Text, View, TextInput, Button } from 'react-native';
 import { useState } from 'react';
 
-function LoginPage() {
+function LoginPage({ navigation }) {
     const [email, setEmail] = useState("")
     const [password, setPassword] = useState("")
+
+    const backButtonPressed = () => {
+        navigation.goBack()
+    }
+
+    const loginButtonPressed = () => {
+
+    }
 
     return (
         <View style={styles.background}>
@@ -27,11 +35,15 @@ function LoginPage() {
             <View style={styles.footer}>
                 <View style={styles.footerRow}>
                     <View style={styles.button}>
-                        <Button title="Back" />
+                        <Button
+                            title="Back"
+                            onPress={backButtonPressed} />
                     </View>
 
                     <View style={styles.button}>
-                        <Button title="Login" />
+                        <Button
+                            title="Login"
+                            onPress={loginButtonPressed} />
                     </View>
                 </View>
             </View>
