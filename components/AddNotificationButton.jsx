@@ -1,5 +1,5 @@
 import { View, Text, StyleSheet, Pressable, TextInput } from 'react-native'
-import { Fragment, useState } from "react"
+import { Fragment, useState, useEffect } from "react"
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import Modal from "react-native-modal";
 import DateTimePicker from '@react-native-community/datetimepicker';
@@ -16,6 +16,33 @@ function AddNotificationButton(props) {
     const [hours, setHours] = useState(-1)
     const [minutes, setMinutes] = useState(-1)
     const [offset, setOffset] = useState(-1)
+
+    const getTime = async () => {
+        let sessionKey = await getSessionKey()
+
+        fetch(ENDPOINT + "/preferences/get/time", {
+            method: "GET",
+            headers: {
+                'x-token': sessionKey
+            }
+        })
+            .then((response) => response.json())
+            .then((data) => {
+                console.log(data)
+
+                if (data.notify_time !== null) {
+                    let timeString = "1970-01-01T" + data.notify_time + ".000Z"
+                    const utc = new Date(timeString)
+
+                    setHours(utc.getHours())
+                    setMinutes(utc.getMinutes())
+                }
+            })
+    }
+
+    useEffect(() => {
+        getTime()
+    }, [])
 
     const openModal = () => {
         setModalOpen(true)
@@ -45,25 +72,27 @@ function AddNotificationButton(props) {
     }
 
     const closeModal = (event, selectedDate) => {
-        const hours = selectedDate.getHours()
-        const minutes = selectedDate.getMinutes()
-        const offset = selectedDate.getTimezoneOffset()
+        if (selectedDate !== undefined) {
+            const hours = selectedDate.getHours()
+            const minutes = selectedDate.getMinutes()
+            const offset = selectedDate.getTimezoneOffset()
 
-        setHours(hours)
-        setMinutes(minutes)
-        setOffset(offset)
+            setHours(hours)
+            setMinutes(minutes)
+            setOffset(offset)
 
-        setModalOpen(false)
-        updateTime(hours, minutes, offset)
+            setModalOpen(false)
+            updateTime(hours, minutes, offset)
+        }
     }
 
     const getTimePicker = () => {
         if (modalOpen) {
             return (
                 <DateTimePicker
-                value={new Date(0)}
-                mode="time"
-                onChange={closeModal}
+                    value={new Date(0)}
+                    mode="time"
+                    onChange={closeModal}
                 />
             )
         } else {
@@ -78,7 +107,7 @@ function AddNotificationButton(props) {
             return "Edit notification"
         }
     }
-    
+
     const getNotificationLabel = () => {
         if (hours === -1 || minutes === -1) {
             return (null)
@@ -149,7 +178,7 @@ const styles = StyleSheet.create({
     text: {
         fontSize: 18,
         marginBottom: 5,
-    }, 
+    },
     configContent: {
         marginTop: 20,
         marginBottom: 20
