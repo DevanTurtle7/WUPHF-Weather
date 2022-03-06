@@ -1,5 +1,7 @@
 import { View, Text, StyleSheet, Pressable } from 'react-native'
+import { Fragment } from "react"
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
+import Modal from "react-native-modal";
 
 function AddNotificationButton(props) {
 
@@ -8,10 +10,19 @@ function AddNotificationButton(props) {
     }
 
     return (
-        <Pressable style={styles.row} onPress={onClick}>
-            <Icon name="alarm-plus" size={30} style={styles.icon} />
-            <Text style={styles.label}>Add new notification</Text>
-        </Pressable>
+        <Fragment>
+            <Pressable style={styles.row} onPress={onClick}>
+                <Icon name="alarm-plus" size={30} style={styles.icon} />
+                <Text style={styles.label}>Add new notification</Text>
+
+            </Pressable>
+
+            <Modal isVisible={false} style={styles.modal}>
+                <View style={styles.modalBody}>
+                    <Text>His</Text>
+                </View>
+            </Modal>
+        </Fragment>
     )
 }
 
@@ -28,6 +39,16 @@ const styles = StyleSheet.create({
     },
     label: {
         fontSize: 18
+    },
+    modal: {
+        justifyContent: 'center',
+        alignItems: 'center',
+    },
+    modalBody: {
+        justifyContent: 'center',
+        alignItems: 'center',
+        backgroundColor: "#fff",
+        width: '80%'
     }
 })
 
