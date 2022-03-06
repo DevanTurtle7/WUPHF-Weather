@@ -3,14 +3,16 @@ import PlatformToggle from '../components/PlatformToggle';
 import AddNotificationButton from '../components/AddNotificationButton';
 import LogoutButton from '../components/LogoutButton';
 
-function HomePage({navigation}) {
+function HomePage({ navigation }) {
     return (
         <View style={styles.body}>
             <View style={styles.content}>
+                <View style={styles.logoutRow}>
+                    <LogoutButton navigation={navigation} />
+                </View>
                 <View style={styles.notificationSection}>
-            <LogoutButton navigation={navigation}/>
                     <Text style={styles.header}>Notifications</Text>
-                    <AddNotificationButton/>
+                    <AddNotificationButton />
                 </View>
 
                 <View style={styles.platformSection}>
@@ -50,6 +52,14 @@ const styles = StyleSheet.create({
     platformSection: {
         flex: 1,
         justifyContent: 'flex-start'
+    },
+    logoutRow: {
+        flex: 1,
+        flexDirection: 'row',
+        alignItems: 'center',
+        justifyContent: 'flex-end',
+        maxHeight: 50,
+        marginTop: 90,
     }
 });
 

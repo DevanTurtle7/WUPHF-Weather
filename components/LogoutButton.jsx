@@ -49,7 +49,7 @@ function LogoutButton(props) {
 
     return (
         <View>
-            <Button title="Logout" onPress={onClick} />
+            <Button title="Logout" onPress={onClick} disabledColor="#474747"/>
         </View>
     )
 }
