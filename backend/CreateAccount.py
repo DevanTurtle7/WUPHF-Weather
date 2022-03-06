@@ -1,6 +1,7 @@
 from flask_restful import Resource
 from flask import request, jsonify
 from db_authentication import *
+import re
 
 
 class CreateAccount(Resource):
@@ -12,7 +13,7 @@ class CreateAccount(Resource):
         lon = request.json['longitude']
         time = request.json['notifyTime']
         # verify
-        if email and password and phone_num and lat and lon:
+        if email and password and re.search('^\d{10}$', phone_num) and lat and lon:
             # Create account
             create_account(email, phone_num, password, lat, lon, time)
 
@@ -24,4 +25,4 @@ class CreateAccount(Resource):
 
             return jsonify({'valid': True, 'cookie': new_session_key})
 
-        return{'valid': False}
+        return {'valid': False}

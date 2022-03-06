@@ -7,7 +7,8 @@ conn = psycopg2.connect(db_conn)
 
 
 def schedule():
-    while datetime.now().minute not in {0, 15, 30, 45}:  # Wait 1 second until we are synced up with the 'every 15 minutes' clock
+    while datetime.now().minute not in {0, 15, 30, 45}:
+        # Wait 1 second until we are synced up with the 'every 15 minutes' clock
         sleep(1)
 
     def trigger():
