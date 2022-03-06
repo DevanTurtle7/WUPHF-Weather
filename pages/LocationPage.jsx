@@ -1,9 +1,11 @@
-import { StyleSheet, Text, View, TextInput } from 'react-native';
-import { useState } from 'react';
+import { StyleSheet, Text, View } from 'react-native';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 import * as Location from 'expo-location';
 
 import Button from '../components/Button';
-import TextButton from '../components/TextButton';
+
+const ENDPOINT = "http://56stewart.tplinkdns.com"
+const UID_KEY = "session"
 
 function LocationPage({ navigation }) {
     const navigateToPage = (name) => {
@@ -13,6 +15,17 @@ function LocationPage({ navigation }) {
         });
     }
 
+    const getSessionKey = async () => {
+        try {
+            const key = await AsyncStorage.getItem(UID_KEY);
+            return key
+        } catch (e) {
+            console.log('error getting session key from storage:')
+            console.log(e)
+            return null
+        }
+    }
+
     const onPress = async () => {
         let { status } = await Location.requestForegroundPermissionsAsync();
 
@@ -20,8 +33,20 @@ function LocationPage({ navigation }) {
             const location = await Location.getCurrentPositionAsync({});
             const latitute = location.coords.latitude
             const longitude = location.coords.longitude
+            const sessionKey = await getSessionKey()
 
-            console.log(latitute, longitude)
+            await fetch(ENDPOINT + "/geo/set/location", {
+                method: "POST",
+                headers: {
+                    Accept: 'application/json',
+                    'Content-Type': 'application/json',
+                    'x-token': sessionKey
+                }, body: JSON.stringify({
+                    latitude: latitute,
+                    longitude: longitude
+                })
+            })
+
             navigateToPage("HomePage")
         }
     }

@@ -5,7 +5,8 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 import Button from '../components/Button';
 import TextButton from '../components/TextButton';
 
-const UID_KEY = "uid"
+const UID_KEY = "session"
+const ENDPOINT = "http://56stewart.tplinkdns.com"
 
 function SignUpPage({ navigation }) {
     const [email, setEmail] = useState("")
@@ -29,7 +30,7 @@ function SignUpPage({ navigation }) {
 
     const nextButtonPressed = async () => {
         if (validData()) {
-            fetch("http://56stewart.tplinkdns.com/auth/signup", {
+            fetch(ENDPOINT + "/auth/signup", {
                 method: "POST",
                 headers: {
                     Accept: 'application/json',

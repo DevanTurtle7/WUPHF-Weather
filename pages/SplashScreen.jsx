@@ -1,7 +1,7 @@
 import { View, StyleSheet } from 'react-native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
-const UID_KEY = "uid"
+const UID_KEY = "session"
 
 function SplashScreen({ navigation }) {
     const navigateToPage = (name) => {

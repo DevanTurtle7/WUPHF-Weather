@@ -1,8 +1,10 @@
 import { StyleSheet, Text, View, TextInput } from 'react-native';
 import PlatformToggle from '../components/PlatformToggle';
 import AddNotificationButton from '../components/AddNotificationButton';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 function HomePage() {
+    AsyncStorage.clear()
     return (
         <View style={styles.body}>
             <View style={styles.content}>
