@@ -1,3 +1,5 @@
+# WUPHF Weather
+
 ## Inspiration
 We wanted to challenge ourselves and learn a lot of new technologies in this hackathon. We remembered an [office episode](https://www.youtube.com/watch?v=OrVskziCc4w) where they created a fictional product called WUPHF where it would notify you on everything at the same time. We thought it would be fun to try to pack as many notification methods into an app as possible.
 
