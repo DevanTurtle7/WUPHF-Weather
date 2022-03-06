@@ -1,8 +1,9 @@
 import secrets
 from hashlib import sha512
 import psycopg2
+from main import *
 
-conn = psycopg2.connect('postgresql://nick:ILsTMfzhA2rcGoGxzY-CtQ@free-tier11.gcp-us-east1.cockroachlabs.cloud:26257/defaultdb?sslmode=verify-full&options=--cluster%3Dwuphf-weather-214')
+conn = psycopg2.connect(db_conn)
 
 
 def generate_salt():

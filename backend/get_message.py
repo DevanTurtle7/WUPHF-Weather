@@ -12,7 +12,7 @@ on the roads. Thing about wearing boots and a jacket when you go outside."""
 clear_message = """It looks to be a clear one today, so you know what that means: suns out guns out! Think about 
 some sunscreen if you don't want to get burnt, and spend some time outside in the sun if it's warm enough!"""
 clouds_message = """There looks to be some gray in the forecast today. Nothing too exciting falling out of the sky, 
-but that can be a good thing"""
+but that can be a good thing."""
 atmospheric_message = """Woah, there is some crazy stuff going on outside. Be careful where you go, and watch your
 phone for updated weather alerts."""
 
@@ -35,8 +35,8 @@ light. Make sure you bring water where ever you go to stay hydrated."""
 def get_weather_message(data):
     data = data.json()
     report = data['weather']
-    weather_main = report[1]
-    weather_id = report[0]
+    weather_main = report[0]['main']
+    weather_id = report[0]['id']
 
     if weather_main == 'Thunderstorm':
         return thunderstorm_message
@@ -59,7 +59,7 @@ def get_weather_message(data):
 def get_temperature_message(data):
     data = data.json()
     main = data['main']
-    temp = main[0]
+    temp = int(main['temp'])
     if temp < 0:
         return below_zero_message
     elif 0 <= temp & temp < 20:
@@ -81,4 +81,4 @@ def get_temperature_message(data):
 def make_message(data):
     weather = get_weather_message(data)
     temperature = get_temperature_message(data)
-    return weather + temperature
+    return weather + "\n" + temperature
