@@ -3,9 +3,13 @@ import { Fragment, useState } from "react"
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import Modal from "react-native-modal";
 import DateTimePicker from '@react-native-community/datetimepicker';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 import Button from './Button';
 import TextButton from './TextButton';
+
+const ENDPOINT = "http://56stewart.tplinkdns.com"
+const UID_KEY = "session"
 
 function AddNotificationButton(props) {
     const [modalOpen, setModalOpen] = useState(false)
@@ -17,16 +21,40 @@ function AddNotificationButton(props) {
         setModalOpen(true)
     }
 
+    const getSessionKey = async () => {
+        const key = await AsyncStorage.getItem(UID_KEY);
+        return key
+    }
+
+    const updateTime = async (hours, minutes, offset) => {
+        let sessionKey = await getSessionKey()
+
+        fetch(ENDPOINT + "/preferences/set/time", {
+            method: "POST",
+            headers: {
+                Accept: 'application/json',
+                'Content-Type': 'application/json',
+                'x-token': sessionKey
+            },
+            body: JSON.stringify({
+                "hour": hours,
+                "minute": minutes,
+                "offset": offset
+            })
+        })
+    }
+
     const closeModal = (event, selectedDate) => {
         const hours = selectedDate.getHours()
         const minutes = selectedDate.getMinutes()
-        //const offset = selectedDate.getTimezoneOffset()
+        const offset = selectedDate.getTimezoneOffset()
 
         setHours(hours)
         setMinutes(minutes)
         setOffset(offset)
 
         setModalOpen(false)
+        updateTime(hours, minutes, offset)
     }
 
     const getTimePicker = () => {
