@@ -11,15 +11,9 @@ function HomePage({ navigation }) {
                     <LogoutButton navigation={navigation} />
                 </View>
                 <View style={styles.notificationSection}>
+                    <Text style={styles.title}>Home</Text>
                     <Text style={styles.header}>Notifications</Text>
                     <AddNotificationButton />
-                </View>
-
-                <View style={styles.platformSection}>
-                    <Text style={styles.header}>Platforms</Text>
-                    <PlatformToggle label="Call" />
-                    <PlatformToggle label="Text" />
-                    <PlatformToggle label="Email" />
                 </View>
             </View>
         </View>
@@ -46,12 +40,7 @@ const styles = StyleSheet.create({
     },
     notificationSection: {
         flex: 1,
-        justifyContent: 'flex-end',
-        marginBottom: 30
-    },
-    platformSection: {
-        flex: 2,
-        justifyContent: 'flex-start',
+        marginTop: 40
     },
     logoutRow: {
         flex: 1,
@@ -60,6 +49,11 @@ const styles = StyleSheet.create({
         justifyContent: 'flex-end',
         maxHeight: 50,
         marginTop: 90,
+    },
+    title: {
+        fontSize: 36,
+        fontWeight: "700",
+        marginBottom: 30
     }
 });
 

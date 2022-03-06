@@ -11,17 +11,20 @@ function AddNotificationButton(props) {
     const [modalOpen, setModalOpen] = useState(false)
     const [hours, setHours] = useState(-1)
     const [minutes, setMinutes] = useState(-1)
+    const [offset, setOffset] = useState(-1)
 
     const openModal = () => {
         setModalOpen(true)
     }
 
     const closeModal = (event, selectedDate) => {
-        const hours = selectedDate.getHours()
-        const minutes = selectedDate.getMinutes()
+        const hours = selectedDate.getUTCHours()
+        const minutes = selectedDate.getUTCMinutes()
+        const offset = selectedDate.getTimezoneOffset()
 
         setHours(hours)
         setMinutes(minutes)
+        setOffset(offset)
 
         setModalOpen(false)
     }
