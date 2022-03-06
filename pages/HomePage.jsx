@@ -50,8 +50,8 @@ const styles = StyleSheet.create({
         marginBottom: 30
     },
     platformSection: {
-        flex: 1,
-        justifyContent: 'flex-start'
+        flex: 2,
+        justifyContent: 'flex-start',
     },
     logoutRow: {
         flex: 1,
