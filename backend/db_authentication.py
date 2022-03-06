@@ -27,56 +27,56 @@ def generate_session_key():
     return secrets.token_urlsafe(24)
 
 
-def session_key_exists(session_key):
+def session_key_exists(session):
     sql = """
     SELECT 1
-    FROM accounts
-    WHERE session_key = %s;
+    FROM account
+    WHERE session = %s;
     """
     with conn.cursor() as curs:
-        return curs.execute(sql.format(session_key))
+        return curs.execute(sql.format(session))
 
 
-def update_session_key(email, new_session_key):
+def update_session_key(email, new_session):
     sql = """
-    UPDATE accounts
-    SET key_expire = NOW() + interval '1 day',
-    session_key = %s
+    UPDATE account
+    SET expire = NOW() + interval '1 day',
+    session = %s
     WHERE email = %s;
     """
     with conn.cursor() as curs:
-        curs.execute(sql.format(email, new_session_key))
+        curs.execute(sql.format(email, new_session))
 
 
-def authenticate_session(session_key):
+def authenticate_session(session):
     sql = """
     SELECT user_id
-    FROM accounts
-    WHERE session_key = %s AND
-    key_expire > NOW();
+    FROM account
+    WHERE session = %s AND
+    expire > NOW();
     """
     with conn.cursor() as curs:
-        curs.execute(sql.format(session_key))
+        curs.execute(sql.format(session))
 
 
-def logout(session_key):
+def logout(session):
     sql = """
-    UPDATE accounts
-    SET key_expire = NOW()
-    WHERE session_key = %s;
+    UPDATE account
+    SET expire = NOW()
+    WHERE session = %s;
     """
     with conn.cursor() as curs:
-        curs.execute(sql.format(session_key))
+        curs.execute(sql.format(session))
 
 
-def create_account(email, password, phone_num, lat, lon):
+def create_account(email, phone, password, lat, lon, time):
     sql = """
-    INSERT INTO accounts
-    (email, password, phone_num, latitude, longitude)
+    INSERT INTO account
+    (email, phone, password, latitude, longitude, notify_time)
     VALUES (%s, %s, %s, %s, %s)
     """
 
     salt = generate_salt()
-    params = [email, hash_password_with_salt(salt, password), phone_num, lat, lon]
+    params = [email, phone, hash_password_with_salt(salt, password), lat, lon, time]
     with conn.cursor() as curs:
         curs.execute(sql, params)

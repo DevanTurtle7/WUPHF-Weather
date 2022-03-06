@@ -4,6 +4,7 @@ from Message import *
 from CreateAccount import *
 from Login import *
 from Logout import *
+from Trigger import *
 
 app = Flask(__name__)
 api = Api(app)
