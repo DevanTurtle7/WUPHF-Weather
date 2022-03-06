@@ -10,6 +10,13 @@ function SignUpPage({ navigation }) {
     const [phone, setPhone] = useState("")
     const [password, setPassword] = useState("")
 
+    const navigateToPage = (name) => {
+        navigation.reset({
+            index: 0,
+            routes: [{ name: name }],
+        });
+    }
+
     const backButtonPressed = () => {
         navigation.goBack()
     }
@@ -24,7 +31,7 @@ function SignUpPage({ navigation }) {
         const longitude = location.coords.longitude
 
         console.log(latitute, longitude)
-        navigation.navigate("HomePage")
+        navigateToPage("HomePage")
     }
 
     return (

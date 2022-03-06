@@ -1,5 +1,6 @@
 import { StyleSheet, Text, View, TextInput } from 'react-native';
 import PlatformToggle from '../components/PlatformToggle';
+import AddNotificationButton from '../components/AddNotificationButton';
 
 function HomePage() {
     return (
@@ -7,7 +8,7 @@ function HomePage() {
             <View style={styles.content}>
                 <View style={styles.notificationSection}>
                     <Text style={styles.header}>Notifications</Text>
-                    <Text style={styles.infoText}>No notifications</Text>
+                    <AddNotificationButton/>
                 </View>
 
                 <View style={styles.platformSection}>
