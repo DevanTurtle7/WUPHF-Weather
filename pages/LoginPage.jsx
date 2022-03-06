@@ -12,6 +12,10 @@ function LoginPage({ navigation }) {
         navigation.goBack()
     }
 
+    const validData = () => {
+        return email !== "" && password !== ""
+    }
+
     const loginButtonPressed = () => {
 
     }

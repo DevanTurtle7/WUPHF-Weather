@@ -17,14 +17,39 @@ function SignUpPage({ navigation }) {
         });
     }
 
+    const validData = () => {
+        return email !== "" && password !== ""
+    }
+
     const backButtonPressed = () => {
         navigation.goBack()
     }
 
     const nextButtonPressed = async () => {
+        if (validData()) {
+            fetch("http://56stewart.tplinkdns.com/auth/signup", {
+                method: "POST",
+                headers: {
+                    Accept: 'application/json',
+                    'Content-Type': 'application/json'
+                }, body: JSON.stringify({
+                    "email": email,
+                    "phone": phone,
+                    "password": password
+                })
+            })
+                .then((response) => response.json())
+                .then((json) => {
+                    console.log(json)
+                })
+                .catch((error) => {
+                    console.error(error);
+                });
+        }
+
         let { status } = await Location.requestForegroundPermissionsAsync();
 
-        if (status !== 'granted') {return}
+        if (status !== 'granted') { return }
 
         const location = await Location.getCurrentPositionAsync({});
         const latitute = location.coords.latitude
