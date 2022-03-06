@@ -6,6 +6,7 @@ import LandingPage from './pages/LandingPage';
 import LoginPage from './pages/LoginPage';
 import SignUpPage from './pages/SignUpPage';
 import SplashScreen from './pages/SplashScreen';
+import LocationPage from './pages/LocationPage';
 
 const Stack = createNativeStackNavigator()
 
@@ -34,6 +35,10 @@ export default function App() {
                 <Stack.Screen
                     name="HomePage"
                     component={HomePage}
+                />
+                <Stack.Screen
+                name="LocationPage"
+                component={LocationPage}
                 />
             </Stack.Navigator>
         </NavigationContainer>

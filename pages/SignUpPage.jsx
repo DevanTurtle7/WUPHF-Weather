@@ -41,22 +41,12 @@ function SignUpPage({ navigation }) {
                 .then((response) => response.json())
                 .then((json) => {
                     console.log(json)
+                    navigateToPage("LocationPage")
                 })
                 .catch((error) => {
                     console.error(error);
                 });
         }
-
-        let { status } = await Location.requestForegroundPermissionsAsync();
-
-        if (status !== 'granted') { return }
-
-        const location = await Location.getCurrentPositionAsync({});
-        const latitute = location.coords.latitude
-        const longitude = location.coords.longitude
-
-        console.log(latitute, longitude)
-        navigateToPage("HomePage")
     }
 
     return (
