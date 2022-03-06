@@ -5,6 +5,7 @@ from CreateAccount import *
 from Login import *
 from Logout import *
 from Trigger import *
+import asyncio
 
 app = Flask(__name__)
 api = Api(app)
@@ -26,5 +27,14 @@ api.add_resource(Logout, '/logout')
 api.add_resource(Message, '/message')
 
 
+# run server and schedule async (below is not working)
+async def main():
+    task1 = asyncio.create_task(app.run(debug=True))
+    task2 = asyncio.create_task(schedule())
+
+    await task1
+    await task2
+
 if __name__ == '__main__':
-    app.run(debug=True)
+    asyncio.run(main())
+
