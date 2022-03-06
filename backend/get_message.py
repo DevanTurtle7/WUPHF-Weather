@@ -23,7 +23,7 @@ zero_twenty_message = """Whew, it's a cold one out there. While it could be wors
 Think about covering up those ears and fingers, and make sure to wear a warm jacket!"""
 twenty_forty_message = """You feel that? It's a chilly one out there today. Make sure to wear a few layers, but you
 probably don't have to go overboard. A sweater and jacket will probably be enough."""
-forty_sixty_message = """Some call this warm, some call this cold. Honestly, I think this is 'just right'. Think 
+forty_sixty_message = """Some call this warm, some call this cold. Honestly, I think this is 'just right'. Think about 
 wearing a sweatshirt and pants today."""
 sixty_eighty_message = """Dress light today, it's a warm one. If the sun is out, you probably won't need a sweater."""
 eighty_hundred_message = """Wow, it's hot out there today. Definitely dress light, trust me, if you spend too much 
