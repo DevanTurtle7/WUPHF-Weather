@@ -59,7 +59,7 @@ function EmailPage({ navigation }) {
     }
 
     const onPress = () => {
-        navigateToPage("PhonePage")
+        navigateToPage("LocationPage")
     }
 
     return (

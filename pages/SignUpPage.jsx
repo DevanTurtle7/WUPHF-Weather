@@ -48,7 +48,7 @@ function SignUpPage({ navigation }) {
 
                     try {
                         await AsyncStorage.setItem(UID_KEY, sessionKey);
-                        navigateToPage("EmailPage")
+                        navigateToPage("PhonePage")
                     } catch (error) {
                         console.log("error writing to async storage")
                         console.log(error)

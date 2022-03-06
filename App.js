@@ -1,5 +1,6 @@
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
+import { LogBox } from 'react-native';
 
 import HomePage from './pages/HomePage';
 import LandingPage from './pages/LandingPage';
@@ -13,6 +14,8 @@ import PhonePage from './pages/PhonePage';
 const Stack = createNativeStackNavigator()
 
 export default function App() {
+    LogBox.ignoreAllLogs();
+
     return (
         <NavigationContainer>
             <Stack.Navigator initialRouteName="SplashScreen" screenOptions={{

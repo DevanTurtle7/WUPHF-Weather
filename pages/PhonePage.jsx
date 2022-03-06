@@ -47,7 +47,7 @@ function PhonePage({ navigation }) {
             .then((response) => response.json())
             .then((data) => {
                 if (data.phone_verified) {
-                    navigateToPage("LocationPage")
+                    navigateToPage("EmailPage")
                 } else {
                     setCode("")
                     setValidCode(false)

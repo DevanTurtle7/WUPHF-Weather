@@ -55,7 +55,7 @@ function AddNotificationButton(props) {
         if (hours === -1 || minutes === -1) {
             return (null)
         } else {
-            return (<Text style={styles.text}>Current timer: {hours}:{minutes}</Text>)
+            return (<Text style={styles.text}>Current timer: {hours - offset}:{minutes}</Text>)
         }
     }
 
