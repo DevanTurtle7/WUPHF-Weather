@@ -42,3 +42,4 @@ We learned about React Native and how it is useful for making mobile/web apps wi
 ## What's next for WUPHF Weather
 We are planning on adding more ways to notify you. We built our backend and frontend in a way that is very extensible so it will be easy to add future notification methods.
 
+![Screenshot](./docs/qrCode.png?raw=true)
