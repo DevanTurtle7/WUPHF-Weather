@@ -24,6 +24,7 @@ function SignUpPage({ navigation }) {
         const longitude = location.coords.longitude
 
         console.log(latitute, longitude)
+        navigation.navigate("HomePage")
     }
 
     return (
