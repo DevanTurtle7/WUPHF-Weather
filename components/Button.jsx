@@ -1,8 +1,22 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Text, StyleSheet, Pressable } from 'react-native';
 
 export default function Button(props) {
-    const { onPress, title = 'Save', color = 'black', textColor = 'white' } = props;
+    const { title = 'Save', color = 'black', textColor = 'white', disabledColor = "#FF8A80" } = props;
+    const [disabled, setDisabled] = useState(false)
+
+    const onPress = async () => {
+        console.log(1)
+        if (!disabled) {
+            console.log(2)
+            setDisabled(true)
+            console.log(3)
+            await props.onPress()
+            console.log(4)
+            setDisabled(false)
+            console.log(5)
+        }
+    }
 
     const styles = StyleSheet.create({
         button: {
@@ -12,7 +26,7 @@ export default function Button(props) {
             paddingHorizontal: 24,
             borderRadius: 4,
             elevation: 3,
-            backgroundColor: color,
+            backgroundColor: disabled ? disabledColor : color,
         },
         text: {
             fontSize: 16,

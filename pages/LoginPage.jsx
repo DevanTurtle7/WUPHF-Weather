@@ -29,7 +29,7 @@ function LoginPage({ navigation }) {
 
     const loginButtonPressed = async () => {
         if (validData) {
-            fetch(ENDPOINT + "/auth/login", {
+            await fetch(ENDPOINT + "/auth/login", {
                 method: "POST",
                 headers: {
                     Accept: 'application/json',
