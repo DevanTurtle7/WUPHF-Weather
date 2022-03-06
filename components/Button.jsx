@@ -6,11 +6,16 @@ export default function Button(props) {
     const [disabled, setDisabled] = useState(false)
 
     const onPress = async () => {
-        if (!disabled) {
+        if (!isDisabled()) {
             setDisabled(true)
             await props.onPress()
             setDisabled(false)
         }
+    }
+
+    const isDisabled = () => {
+        const disabledProp = (props.disabled === true)
+        return disabled || disabledProp
     }
 
     const styles = StyleSheet.create({
@@ -21,7 +26,7 @@ export default function Button(props) {
             paddingHorizontal: 24,
             borderRadius: 4,
             elevation: 3,
-            backgroundColor: disabled ? disabledColor : color,
+            backgroundColor: isDisabled() ? disabledColor : color,
         },
         text: {
             fontSize: 16,

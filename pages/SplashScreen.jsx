@@ -16,7 +16,7 @@ function SplashScreen({ navigation }) {
             const id = await AsyncStorage.getItem(UID_KEY);
 
             if (id !== null) {
-                navigateToPage("Home")
+                navigateToPage("HomePage")
             } else {
                 navigateToPage("LandingPage")
             }

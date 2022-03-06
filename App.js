@@ -7,6 +7,8 @@ import LoginPage from './pages/LoginPage';
 import SignUpPage from './pages/SignUpPage';
 import SplashScreen from './pages/SplashScreen';
 import LocationPage from './pages/LocationPage';
+import EmailPage from './pages/EmailPage';
+import PhonePage from './pages/PhonePage';
 
 const Stack = createNativeStackNavigator()
 
@@ -37,8 +39,16 @@ export default function App() {
                     component={HomePage}
                 />
                 <Stack.Screen
-                name="LocationPage"
-                component={LocationPage}
+                    name="LocationPage"
+                    component={LocationPage}
+                />
+                <Stack.Screen
+                    name="EmailPage"
+                    component={EmailPage}
+                />
+                <Stack.Screen
+                    name="PhonePage"
+                    component={PhonePage}
                 />
             </Stack.Navigator>
         </NavigationContainer>

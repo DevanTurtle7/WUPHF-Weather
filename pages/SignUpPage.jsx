@@ -30,7 +30,7 @@ function SignUpPage({ navigation }) {
 
     const nextButtonPressed = async () => {
         if (validData()) {
-            fetch(ENDPOINT + "/auth/signup", {
+            await fetch(ENDPOINT + "/auth/signup", {
                 method: "POST",
                 headers: {
                     Accept: 'application/json',
@@ -48,7 +48,7 @@ function SignUpPage({ navigation }) {
 
                     try {
                         await AsyncStorage.setItem(UID_KEY, sessionKey);
-                        navigateToPage("LocationPage")
+                        navigateToPage("EmailPage")
                     } catch (error) {
                         console.log("error writing to async storage")
                         console.log(error)

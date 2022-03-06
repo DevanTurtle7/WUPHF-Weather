@@ -56,7 +56,7 @@ function LocationPage({ navigation }) {
             <View style={styles.container}>
                 <Text style={styles.label}>Enable Location Services</Text>
                 <View style={styles.button}>
-                    <Button title="Allow" onPress={onPress}/>
+                    <Button title="Allow" onPress={onPress} disabledColor="#474747"/>
                 </View>
             </View>
         </View>
