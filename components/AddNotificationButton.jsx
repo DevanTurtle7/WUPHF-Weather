@@ -81,9 +81,10 @@ function AddNotificationButton(props) {
             setMinutes(minutes)
             setOffset(offset)
 
-            setModalOpen(false)
             updateTime(hours, minutes, offset)
         }
+
+        setModalOpen(false)
     }
 
     const getTimePicker = () => {
