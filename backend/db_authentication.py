@@ -1,23 +1,9 @@
 import secrets
 from hashlib import sha512
 import psycopg2
-import os
+from main import *
 
-opt = 'postgresql://free-tier11.gcp-us-east1.cockroachlabs.cloud:26257/defaultdb'
-conn = psycopg2.connect(os.environ[opt])
-
-
-def create_account(email, password, phone_num, lat, lon):
-    sql = """
-    INSERT INTO user
-    (email, password, phone_num, lat, lon)
-    VALUES (%s, %s, %s, %s, %s)
-    """
-
-    salt = generate_salt()
-    params = [email, hash_password_with_salt(salt, password), phone_num, lat, lon]
-    with conn.cursor() as curs:
-        curs.execute(sql.format(params))
+conn = psycopg2.connect(db_conn)
 
 
 def generate_salt():
@@ -44,7 +30,7 @@ def generate_session_key():
 def session_key_exists(session_key):
     sql = """
     SELECT 1
-    FROM user
+    FROM accounts
     WHERE session_key = %s;
     """
     with conn.cursor() as curs:
@@ -53,7 +39,7 @@ def session_key_exists(session_key):
 
 def update_session_key(email, new_session_key):
     sql = """
-    UPDATE user
+    UPDATE accounts
     SET key_expire = NOW() + interval '1 day',
     session_key = %s
     WHERE email = %s;
@@ -65,7 +51,7 @@ def update_session_key(email, new_session_key):
 def authenticate_session(session_key):
     sql = """
     SELECT user_id
-    FROM user
+    FROM accounts
     WHERE session_key = %s AND
     key_expire > NOW();
     """
@@ -75,9 +61,22 @@ def authenticate_session(session_key):
 
 def logout(session_key):
     sql = """
-    UPDATE user
+    UPDATE accounts
     SET key_expire = NOW()
     WHERE session_key = %s;
     """
     with conn.cursor() as curs:
         curs.execute(sql.format(session_key))
+
+
+def create_account(email, password, phone_num, lat, lon):
+    sql = """
+    INSERT INTO accounts
+    (email, password, phone_num, latitude, longitude)
+    VALUES (%s, %s, %s, %s, %s)
+    """
+
+    salt = generate_salt()
+    params = [email, hash_password_with_salt(salt, password), phone_num, lat, lon]
+    with conn.cursor() as curs:
+        curs.execute(sql, params)

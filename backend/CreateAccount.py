@@ -5,9 +5,9 @@ from db_authentication import *
 
 class CreateAccount(Resource):
     def post(self):
-        email = request.json['email']
+        email = request.json['emailAddress']
         password = request.json['password']
-        phone_num = request.json['phone_number']
+        phone_num = request.json['telephoneNumber']
         lat = request.json['latitude']
         lon = request.json['longitude']
         # verify
