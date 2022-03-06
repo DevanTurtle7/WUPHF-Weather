@@ -1,8 +1,12 @@
 import { StyleSheet, Text, View, TextInput } from 'react-native';
 import { useState } from 'react';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 import Button from '../components/Button';
 import TextButton from '../components/TextButton';
+
+const UID_KEY = "session"
+const ENDPOINT = "http://56stewart.tplinkdns.com"
 
 function LoginPage({ navigation }) {
     const [email, setEmail] = useState("")
@@ -16,8 +20,36 @@ function LoginPage({ navigation }) {
         return email !== "" && password !== ""
     }
 
-    const loginButtonPressed = () => {
+    const navigateToPage = (name) => {
+        navigation.reset({
+            index: 0,
+            routes: [{ name: name }],
+        });
+    }
 
+    const loginButtonPressed = async () => {
+        if (validData) {
+            fetch(ENDPOINT + "/auth/login", {
+                method: "POST",
+                headers: {
+                    Accept: 'application/json',
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({
+                    "email": email,
+                    "password": password
+                })
+            })
+                .then((response) => response.json())
+                .then(async (data) => {
+                    if (data.detail === undefined) {
+                        const sessionKey = data.session
+                        console.log(sessionKey)
+                        await AsyncStorage.setItem(UID_KEY, sessionKey);
+                        navigateToPage("HomePage")
+                    }
+                })
+        }
     }
 
     return (
