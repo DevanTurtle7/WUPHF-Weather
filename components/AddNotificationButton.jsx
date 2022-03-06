@@ -18,9 +18,9 @@ function AddNotificationButton(props) {
     }
 
     const closeModal = (event, selectedDate) => {
-        const hours = selectedDate.getUTCHours()
-        const minutes = selectedDate.getUTCMinutes()
-        const offset = selectedDate.getTimezoneOffset()
+        const hours = selectedDate.getHours()
+        const minutes = selectedDate.getMinutes()
+        //const offset = selectedDate.getTimezoneOffset()
 
         setHours(hours)
         setMinutes(minutes)
@@ -55,7 +55,7 @@ function AddNotificationButton(props) {
         if (hours === -1 || minutes === -1) {
             return (null)
         } else {
-            return (<Text style={styles.text}>Current timer: {hours - offset}:{minutes}</Text>)
+            return (<Text style={styles.text}>Current timer: {hours}:{minutes}</Text>)
         }
     }
 
