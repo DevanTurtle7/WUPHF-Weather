@@ -1,12 +1,14 @@
 import { StyleSheet, Text, View, TextInput } from 'react-native';
 import PlatformToggle from '../components/PlatformToggle';
 import AddNotificationButton from '../components/AddNotificationButton';
+import LogoutButton from '../components/LogoutButton';
 
-function HomePage() {
+function HomePage({navigation}) {
     return (
         <View style={styles.body}>
             <View style={styles.content}>
                 <View style={styles.notificationSection}>
+            <LogoutButton navigation={navigation}/>
                     <Text style={styles.header}>Notifications</Text>
                     <AddNotificationButton/>
                 </View>
