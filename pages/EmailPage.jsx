@@ -7,7 +7,7 @@ import Button from '../components/Button';
 
 const ENDPOINT = "http://56stewart.tplinkdns.com"
 const UID_KEY = "session"
-const POLL_RATE = 10000
+const POLL_RATE = 5000
 
 function EmailPage({ navigation }) {
     const [verified, setVerified] = useState(false)

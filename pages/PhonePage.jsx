@@ -46,8 +46,6 @@ function PhonePage({ navigation }) {
         })
             .then((response) => response.json())
             .then((data) => {
-                console.log(data)
-                console.log(data.phone_verified)
                 if (data.phone_verified) {
                     navigateToPage("LocationPage")
                 } else {
