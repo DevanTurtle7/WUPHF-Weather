@@ -1,5 +1,8 @@
-import { StyleSheet, Text, View, TextInput, Button } from 'react-native';
+import { StyleSheet, Text, View, TextInput } from 'react-native';
 import { useState } from 'react';
+
+import Button from '../components/Button';
+import TextButton from '../components/TextButton';
 
 function LoginPage({ navigation }) {
     const [email, setEmail] = useState("")
@@ -16,14 +19,14 @@ function LoginPage({ navigation }) {
     return (
         <View style={styles.background}>
             <View style={styles.container}>
-                <Text>Email</Text>
+                <Text style={styles.label}>Email</Text>
                 <TextInput
                     style={styles.input}
                     textContentType='emailAddress'
                     placeholder='Email'
                     onChangeText={setEmail} />
 
-                <Text>Password</Text>
+                <Text style={styles.label}>Password</Text>
                 <TextInput
                     style={styles.input}
                     secureTextEntry
@@ -35,7 +38,7 @@ function LoginPage({ navigation }) {
             <View style={styles.footer}>
                 <View style={styles.footerRow}>
                     <View style={styles.button}>
-                        <Button
+                        <TextButton
                             title="Back"
                             onPress={backButtonPressed} />
                     </View>
@@ -43,6 +46,7 @@ function LoginPage({ navigation }) {
                     <View style={styles.button}>
                         <Button
                             title="Login"
+                            color="#D50000"
                             onPress={loginButtonPressed} />
                     </View>
                 </View>
@@ -62,11 +66,11 @@ const styles = StyleSheet.create({
         marginHorizontal: 50
     },
     input: {
-        height: 40,
         borderWidth: 1,
         padding: 10,
         marginTop: 10,
         marginBottom: 30,
+        fontSize: 16
     },
     footer: {
         height: 70,
@@ -75,10 +79,13 @@ const styles = StyleSheet.create({
         flex: 1,
         justifyContent: 'space-between',
         flexDirection: 'row',
-        marginHorizontal: 50,
+        marginHorizontal: 20,
     },
     button: {
-        width: 80
+        width: 90
+    },
+    label: {
+        fontSize: 16
     }
 });
 
