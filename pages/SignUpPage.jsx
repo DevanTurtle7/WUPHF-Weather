@@ -1,9 +1,11 @@
 import { StyleSheet, Text, View, TextInput } from 'react-native';
 import { useState } from 'react';
-import * as Location from 'expo-location';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 import Button from '../components/Button';
 import TextButton from '../components/TextButton';
+
+const UID_KEY = "uid"
 
 function SignUpPage({ navigation }) {
     const [email, setEmail] = useState("")
@@ -39,9 +41,18 @@ function SignUpPage({ navigation }) {
                 })
             })
                 .then((response) => response.json())
-                .then((json) => {
-                    console.log(json)
-                    navigateToPage("LocationPage")
+                .then(async (data) => {
+                    const sessionKey = data.session
+                    console.log(sessionKey)
+
+                    try {
+                        await AsyncStorage.setItem(UID_KEY, sessionKey);
+                        navigateToPage("LocationPage")
+                    } catch (error) {
+                        console.log("error writing to async storage")
+                        console.log(error)
+                    }
+
                 })
                 .catch((error) => {
                     console.error(error);
