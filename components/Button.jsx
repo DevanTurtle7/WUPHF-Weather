@@ -6,15 +6,10 @@ export default function Button(props) {
     const [disabled, setDisabled] = useState(false)
 
     const onPress = async () => {
-        console.log(1)
         if (!disabled) {
-            console.log(2)
             setDisabled(true)
-            console.log(3)
             await props.onPress()
-            console.log(4)
             setDisabled(false)
-            console.log(5)
         }
     }
 
