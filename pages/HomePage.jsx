@@ -5,12 +5,17 @@ function HomePage() {
     return (
         <View style={styles.body}>
             <View style={styles.content}>
-                <Text style={styles.header}>Notifications</Text>
+                <View style={styles.notificationSection}>
+                    <Text style={styles.header}>Notifications</Text>
+                    <Text style={styles.infoText}>No notifications</Text>
+                </View>
 
-                <Text style={styles.header}>Platforms</Text>
-                <PlatformToggle label="Call" />
-                <PlatformToggle label="Text" />
-                <PlatformToggle label="Email" />
+                <View style={styles.platformSection}>
+                    <Text style={styles.header}>Platforms</Text>
+                    <PlatformToggle label="Call" />
+                    <PlatformToggle label="Text" />
+                    <PlatformToggle label="Email" />
+                </View>
             </View>
         </View>
     )
@@ -29,7 +34,19 @@ const styles = StyleSheet.create({
     header: {
         fontSize: 24,
         fontWeight: '700',
-        marginBottom: 10
+        marginBottom: 5
+    },
+    infoText: {
+        fontSize: 18
+    },
+    notificationSection: {
+        flex: 1,
+        justifyContent: 'flex-end',
+        marginBottom: 30
+    },
+    platformSection: {
+        flex: 1,
+        justifyContent: 'flex-start'
     }
 });
 

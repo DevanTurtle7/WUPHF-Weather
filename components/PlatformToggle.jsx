@@ -7,7 +7,7 @@ const ACTIVE_TRACK_COLOR = "#FF8A80"
 const INACTIVE_TRACK_COLOR = "#a2a2a2"
 
 function PlatformToggle(props) {
-    const [enabled, setEnabled] = useState(false)
+    const [enabled, setEnabled] = useState(true)
 
     const toggleSwitch = () => {
         setEnabled(!enabled)
