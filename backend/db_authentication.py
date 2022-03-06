@@ -66,7 +66,7 @@ def logout(session):
     WHERE session = %s;
     """
     with conn.cursor() as curs:
-        curs.execute(sql.format(session_key))
+        curs.execute(sql.format(session))
 
 
 def create_account(email, phone, password, lat, lon, time):
