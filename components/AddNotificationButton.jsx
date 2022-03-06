@@ -2,51 +2,68 @@ import { View, Text, StyleSheet, Pressable, TextInput } from 'react-native'
 import { Fragment, useState } from "react"
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import Modal from "react-native-modal";
+import DateTimePicker from '@react-native-community/datetimepicker';
 
 import Button from './Button';
 import TextButton from './TextButton';
 
 function AddNotificationButton(props) {
     const [modalOpen, setModalOpen] = useState(false)
+    const [hours, setHours] = useState(-1)
+    const [minutes, setMinutes] = useState(-1)
 
     const openModal = () => {
         setModalOpen(true)
     }
 
-    const closeModal = () => {
+    const closeModal = (event, selectedDate) => {
+        const hours = selectedDate.getHours()
+        const minutes = selectedDate.getMinutes()
+
+        setHours(hours)
+        setMinutes(minutes)
+
         setModalOpen(false)
+    }
+
+    const getTimePicker = () => {
+        if (modalOpen) {
+            return (
+                <DateTimePicker
+                value={new Date(0)}
+                mode="time"
+                onChange={closeModal}
+                />
+            )
+        } else {
+            return (null)
+        }
+    }
+
+    const getButtonText = () => {
+        if (hours === -1 || minutes === -1) {
+            return "Add new notification"
+        } else {
+            return "Edit notification"
+        }
+    }
+    
+    const getNotificationLabel = () => {
+        if (hours === -1 || minutes === -1) {
+            return (null)
+        } else {
+            return (<Text style={styles.text}>Current timer: {hours}:{minutes}</Text>)
+        }
     }
 
     return (
         <Fragment>
+            {getNotificationLabel()}
             <Pressable style={styles.row} onPress={openModal}>
                 <Icon name="alarm-plus" size={30} style={styles.icon} />
-                <Text style={styles.label}>Add new notification</Text>
+                <Text style={styles.label}>{getButtonText()}</Text>
             </Pressable>
-
-            <Modal isVisible={modalOpen} style={styles.modal}>
-                <View style={styles.modalBody}>
-                    <Text style={styles.header}>New Notification</Text>
-
-                    <View style={styles.configContent}>
-                        <Text style={styles.text}>Repeats every</Text>
-                        <View style={styles.inputRow}>
-                            <TextInput
-                                placeholder="0"
-                                keyboardType='number-pad'
-                                style={styles.input} />
-                            <Text style={styles.text}>days</Text>
-                        </View>
-                        <Text style={styles.text}>at</Text>
-                        <Text style={styles.text}>Time</Text>
-                    </View>
-
-                    <View style={styles.footer}>
-                        <TextButton title="Cancel" onPress={closeModal} />
-                        <Button title="Add" />
-                    </View>
-                </View>
-            </Modal>
+            {getTimePicker()}
         </Fragment>
     )
 }
@@ -99,7 +116,8 @@ const styles = StyleSheet.create({
         alignItems: 'center',
     },
     text: {
-        fontSize: 18
+        fontSize: 18,
+        marginBottom: 5,
     }, 
     configContent: {
         marginTop: 20,
