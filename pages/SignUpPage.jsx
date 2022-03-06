@@ -41,6 +41,8 @@ function SignUpPage({ navigation }) {
                     style={styles.input}
                     textContentType='telephoneNumber'
                     placeholder='Phone'
+                    maxLength={10}
+                    keyboardType='number-pad'
                     onChangeText={setPhone} />
 
                 <Text style={styles.label}>Password</Text>
